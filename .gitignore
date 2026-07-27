@@ -18,3 +18,6 @@ venv/
 # Локальные результаты проверки
 validation-report.txt
 /corrections
+*.bat
+*.ps1
+*.bak_20260727_125644
