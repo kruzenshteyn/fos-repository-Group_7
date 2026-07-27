@@ -59,19 +59,15 @@
 
 ## 2. Модель измерения
 
-Полная детализированная таблица — в [MEASUREMENT_MODEL_detailed.md](MEASUREMENT_MODEL_detailed.md).
+**Общий объём:** 180 часов (5 ЗЕ). **Итоговая шкала:** 100 баллов.
 
-Кратко:
-
-| № | Модуль / элемент | Код компетенции КРМ | Уровень | Форма контроля | Баллы |
-|---|------------------|---------------------|---------|----------------|-------|
-| 1 | М1. Архитектура ИИ-систем | LC-5, AI S-1 | С | Архитектурный кейс | 10 |
-| 2 | М2. Сбор и обработка данных | ML-4, LC-5 | С | Практики с данными | 15 |
-| 3 | М3. Разработка моделей МО | ML-2, ML-3, ML-4, ML-6, DL-1, DL-3, DL-4 | С/П | Практики с моделями | 15 |
-| 4 | М4. Интеграция и Edge AI | ML-6, LC-5, AI S-1 | П | Edge AI + Home Assistant | 10 |
-| 5 | М5. Проект + экзамен | Все перечисленные | П | Проект + экзамен | 25 + 20 |
-| — | Peer-review | — | — | — | 5 |
-| | **Итого** | | | | **100** |
+| № | Модуль / элемент | Код компетенции КРМ | Роль | Индикатор | Уровень | Дескриптор освоения | Форма контроля | КИМ | Ресурсы |
+|---|------------------|---------------------|------|-----------|---------|---------------------|----------------|-----|---------|
+| 1 | [М1. Введение и архитектура](M1-Intro_Muratov/) (22 ч) | [LC-5](COMPETENCIES.md), [AI S-1](COMPETENCIES.md) | AI Architect | Анализ сценария, проектирование архитектуры «сенсор—данные—модель—решение», выбор размещения вычислений | С | Анализирует пользовательский сценарий, проектирует архитектуру, выбирает Device/Edge/Fog/Cloud с обоснованием | Текущая (архитектурный кейс) | [ASSESSMENT_TOOLS.md](ASSESSMENT_TOOLS.md), [M1 README](M1-Intro_Muratov/README.md) | [COURSE_INFO.md](COURSE_INFO.md), лекции в [M1](M1-Intro_Muratov/) |
+| 2 | [М2. Сбор и обработка данных](M2-Found_Muratov/) (36 ч) | [ML-4](COMPETENCIES.md), [LC-5](COMPETENCIES.md) | Data Engineer IoT | Требования к источникам, потоковая телеметрия, очистка, контроль качества, передача данных | С | Определяет требования к сенсорам, организует MQTT/HTTP потоки, выполняет очистку и синхронизацию, документирует Data Card | Рубежная (практики с данными) | [ASSESSMENT_TOOLS.md](ASSESSMENT_TOOLS.md), [M2 README](M2-Found_Muratov/README.md) | [data/](data/), [resources/datasets](resources/datasets/README.md) |
+| 3 | [М3. Разработка моделей МО](M3-ML_Models/) (54 ч) | [ML-2](COMPETENCIES.md), [ML-3](COMPETENCIES.md), [ML-4](COMPETENCIES.md), [ML-6](COMPETENCIES.md), [DL-1](COMPETENCIES.md), [DL-3](COMPETENCIES.md), [DL-4](COMPETENCIES.md) | ML Engineer | Формализация задачи, выбор/обучение/валидация моделей (unsupervised, CV, NLP, RL), анализ ошибок | С / П | Формализует сценарий как задачу МО/DL, обучает и валидирует модель, применяет transfer learning / pruning / quantization, анализирует ошибки | Рубежная (практики с моделями) | [ASSESSMENT_TOOLS.md](ASSESSMENT_TOOLS.md), [M3 README](M3-ML_Models/README.md), [Isolation Forest](src/isolation_forest_baseline.py) | [notebooks/](notebooks/), [src/](src/), [resources/benchmarks](resources/benchmarks/README.md) |
+| 4 | [М4. Интеграция и Edge AI](M4-MK_Baev/) (36 ч) | [ML-6](COMPETENCIES.md), [DL-1](COMPETENCIES.md), [LC-5](COMPETENCIES.md), [AI S-1](COMPETENCIES.md) | ML Engineer / AI Architect | Интеграция модели в Home Assistant / Edge, учёт latency, энергопотребления, безопасности | П | Интегрирует модель на Edge-устройство, создаёт интеграцию HA, настраивает мониторинг и human-in-the-loop | Рубежная (Edge AI + HA) | [ASSESSMENT_TOOLS.md](ASSESSMENT_TOOLS.md), [M4 README](M4-MK_Baev/README.md) | [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md), [resources/software](resources/software/python-libs/README.md) |
+| 5 | [М5. Проект + Экзамен](M5-Project_Exam/) (32 ч) | Все перечисленные | Все роли | Комплексная реализация полного цикла ИИ-функции умного дома | П | Разрабатывает, тестирует и защищает работающий прототип с документацией, рисками и метриками | Проектная защита + устный экзамен | [PROJECT_REQUIREMENTS.md](PROJECT_REQUIREMENTS.md), [Exam/](Exam/), [M5 README](M5-Project_Exam/README.md) | [team/](team/README.md), [data/](data/) |
 
 ## 3. Контрольно-измерительные материалы
 
