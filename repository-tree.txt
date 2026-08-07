@@ -10,7 +10,14 @@ fos-repository-Group_7/
 ├── M4-Edge-Deployment/
 ├── M5-Project-Exam/
 ├── Project/
+│   ├── README.md
+│   ├── case-template.md
+│   ├── rubric.md
+│   └── partner-protocol.md
 ├── Exam/
+│   ├── README.md
+│   ├── tickets.md
+│   └── rubric.md
 ├── docs/
 │   ├── rpd.md
 │   └── quality/
@@ -22,10 +29,15 @@ fos-repository-Group_7/
 │   └── teachers-resources/
 ├── resources/
 │   ├── datasets/
-│   ├── software/
 │   ├── benchmarks/
+│   ├── llm-prompts/
+│   ├── papers/
 │   ├── problem-banks/
-│   └── test-banks/
+│   ├── software/
+│   │   ├── examples/isolation-forest/
+│   │   └── python-libs/
+│   ├── test-banks/
+│   └── textbooks/
 ├── data/
 │   └── krm-v3.0.xlsx
 └── team/

@@ -5,8 +5,8 @@
 | Архитектурный кейс (М1) | Проектирование архитектуры «сенсор — данные — модель — решение» для выбранного сценария умного дома. | М1; LC-3.1, AI S-1.1 | [`M1-Introduction`](../../M1-Introduction/README.md) | Учебная | 2026-08-07 |
 | Фундаментальные технологии (М2) | Прогнозирование, CV, голосовой интерфейс и RL на данных умного дома. | М2; ML-3.2, DL-3.1, DL-4.1, DL-5.1, ML-6.1 | [`M2-AI-Foundations`](../../M2-AI-Foundations/README.md), [датасеты](../datasets/README.md) | Учебная | 2026-08-07 |
 | Специфические задачи (М3) | Isolation Forest, predictive maintenance, энергоменеджмент и анализ рисков. | М3; ML-4.2, ML-4.3, O-3.1, AI S-1.1 | [`M3-Smart-Home-Models`](../../M3-Smart-Home-Models/README.md), [пример](../software/examples/isolation-forest/README.md) | Учебная | 2026-08-07 |
-| Edge AI + Home Assistant (М4) | Развёртывание модели, интеграция HA, мониторинг, human-in-the-loop. | М4; LC-5, AI S-1 | `M4-Edge-Deployment/` | Учебная | 2026-07-27 |
-| Сквозной проект (М5) | Полный цикл ИИ-функции умного дома: прототип, документация и защита. | М5; LC-2.1, LC-3.1, LC-5.1 | [`Project`](../../Project/README.md), [`M5-Project-Exam`](../../M5-Project-Exam/README.md) | Учебная | 2026-08-07 |
+| Edge AI + Home Assistant (М4) | Развёртывание модели, интеграция HA, мониторинг, human-in-the-loop. | М4; LC-5.1/5.2, LC-3.1, ML-5.1, AI S-1.1/1.2 | [`M4-Edge-Deployment`](../../M4-Edge-Deployment/README.md) | CC BY 4.0 | 2026-08-07 |
+| Индустриальный хакатон (М5) | Утверждённый партнёром кейс, прототип, peer review, жюри и защита. | М5; LC-2.1, LC-3.1, LC-5.1, SS-1.1/1.2, AI S-1.1 | [`Project`](../../Project/README.md), [`M5-Project-Exam`](../../M5-Project-Exam/README.md) | CC BY 4.0 | 2026-08-07 |
 
 ## Требования к добавлению
 

@@ -35,15 +35,16 @@ weighted avg       0.96      0.96      0.96      2000
 ```
 
 ## Файлы
-- Модель: `models/isolation_forest.joblib`
-- Scaler: `models/scaler.joblib`
+- Модель при воспроизведении: `output/models/isolation_forest.joblib`
+- Scaler при воспроизведении: `output/models/scaler.joblib`
 - Предсказания при воспроизведении: `output/reports/predictions.csv`
 
 ## Компетенция КРМ
-**ML-4** — Обучение без учителя (обнаружение аномалий в сенсорных потоках умного дома).
+**ML-4.2** — выявление аномалий; **ML-4.3** — оценивание результата обучения без учителя.
 
 ## Как воспроизвести
 ```bash
-python src/generate_sample_data.py
-python src/isolation_forest_baseline.py
+python resources/software/examples/isolation-forest/src/isolation_forest_baseline.py
 ```
+
+Сценарий читает канонический набор `resources/datasets/isolation-forest-sample.csv`. Генератор `src/generate_sample_data.py` сохраняет альтернативный синтетический набор в игнорируемый каталог `output/` и не перезаписывает контрольный набор.

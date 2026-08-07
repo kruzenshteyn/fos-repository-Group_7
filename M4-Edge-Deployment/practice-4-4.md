@@ -1,7 +1,8 @@
-Практическое занятие: Разработка Custom Integration для Home Assistant с ML-моделью детекции аномалий
-Дисциплина: Промышленная разработка систем ИИ
-Компетенции: LC‑5, LC‑5.2 (средний уровень); PL‑1, PL‑1.2 (средний уровень)
-Продолжительность: 4 академических часа
+# Практическое занятие 4.4. Custom Integration для Home Assistant с ML-моделью
+
+**Дисциплина:** Прикладной искусственный интеллект для систем умного дома
+**Индикаторы:** `LC-5.2 (С)`, `LC-3.1 (С)`, `PL-1.2 (С)`, `ML-5.1 (С)`, `AI S-1.1 (Б)`, `AI S-1.2 (Б)`
+**Продолжительность:** 4 академических часа
 
 1. Цели занятия
 После выполнения практической работы студент сможет:
@@ -14,13 +15,18 @@
 
 Создать ML-пайплайн, автоматически запускающий инференс при изменении состояния датчиков
 
-Применить инженерные практики из компетенции LC‑5.2: выбор инструментов управления данными, контроль качества, организация доступа
+Применить инженерные практики индикатора `LC-5.2 (С)`: выбрать инструменты управления данными, организовать контроль качества и доступа.
 
-Связь с компетенциями:
+Связь с индикаторами:
 
-Компетенция	Индикатор	Уровень	Что отрабатывается
-LC‑5	LC‑5.2	Средний	Выбор инструментов управления данными (координатор, MQTT, REST API), настройка доступа и контроля качества
-PL‑1	PL‑1.2	Средний	Выбор и применение библиотек Python (scikit-learn, asyncio, aiohttp) для ML и интеграции
+| Индикатор | Уровень | Что отрабатывается |
+|---|:---:|---|
+| LC-5.2 | С | Координатор, MQTT/REST, управление доступом и качеством данных. |
+| LC-3.1 | С | Архитектура интеграции модели с Home Assistant. |
+| PL-1.2 | С | Реализация асинхронной Python-интеграции и обработка ошибок. |
+| ML-5.1 | С | Диагностика, мониторинг, безопасное обновление и откат. |
+| AI S-1.1 | Б | Выявление угроз эксплуатационному контуру. |
+| AI S-1.2 | Б | Учет требований доверенного ИИ и ограничений публикации. |
 2. Необходимое ПО и подготовка среды
 Программное обеспечение
 Компонент	Версия	Назначение
@@ -96,11 +102,9 @@ json
     "pandas>=2.0.0"
   ],
   "dependencies": [],
-  "codeowners": ["@yourusername"],
-  "config_flow": true,
-  "documentation": "https://example.com/docs",
-  "issue_tracker": "https://github.com/user/repo/issues"
+  "config_flow": true
 }
+Поля `codeowners`, `documentation` и `issue_tracker` добавляются только после подтверждения владельца и адресов конкретного проекта.
 Внимание: Кастомные интеграции обязаны содержать ключ version в manifest.json.
 
 3.3. Реализация init.py
@@ -119,16 +123,16 @@ PLATFORMS = [Platform.SENSOR]
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Настройка интеграции из config entry."""
     hass.data.setdefault(DOMAIN, {})
-    
+
     # Инициализация координатора
     coordinator = AnomalyDetectorCoordinator(hass, entry)
     await coordinator.async_config_entry_first_refresh()
-    
+
     hass.data[DOMAIN][entry.entry_id] = coordinator
-    
+
     # Пересылка платформ
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
-    
+
     return True
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -165,7 +169,7 @@ import os
 
 class AnomalyDetectorModel:
     """Класс для обучения и инференса модели детекции аномалий."""
-    
+
     def __init__(self, model_path: str = None):
         self.model = None
         self.model_path = model_path
@@ -173,14 +177,14 @@ class AnomalyDetectorModel:
             "temperature", "humidity", "power_consumption",
             "motion_count", "light_level"
         ]
-        
+
     def load_model(self) -> bool:
         """Загрузка обученной модели из файла."""
         if self.model_path and os.path.exists(self.model_path):
             self.model = joblib.load(self.model_path)
             return True
         return False
-    
+
     def train(self, data: pd.DataFrame) -> None:
         """Обучение модели на исторических данных."""
         features = data[self.feature_names].values
@@ -190,16 +194,16 @@ class AnomalyDetectorModel:
             n_estimators=100
         )
         self.model.fit(features)
-        
+
         # Сохранение модели
         if self.model_path:
             os.makedirs(os.path.dirname(self.model_path), exist_ok=True)
             joblib.dump(self.model, self.model_path)
-    
+
     def predict(self, data: dict) -> dict:
         """
         Инференс модели для одного наблюдения.
-        
+
         Возвращает:
         - anomaly_score: float (0..1) — степень аномальности
         - is_anomaly: bool — является ли аномалией
@@ -208,20 +212,20 @@ class AnomalyDetectorModel:
         if self.model is None:
             if not self.load_model():
                 return {"error": "Model not loaded"}
-        
+
         # Преобразование входных данных в вектор признаков
         features = np.array([[
             data.get(f, 0.0) for f in self.feature_names
         ]])
-        
+
         # Предсказание: -1 = аномалия, 1 = норма
         prediction = self.model.predict(features)[0]
-        
+
         # Оценка аномальности (чем ниже, тем более аномально)
         score = self.model.score_samples(features)[0]
         # Нормализация в диапазон 0..1
         anomaly_score = 1 / (1 + np.exp(-score))
-        
+
         return {
             "is_anomaly": prediction == -1,
             "anomaly_score": float(anomaly_score),
@@ -240,7 +244,7 @@ from ml_model import AnomalyDetectorModel
 data = pd.read_csv("home_assistant_history.csv")
 
 # Выбор признаков
-features = ["temperature", "humidity", "power_consumption", 
+features = ["temperature", "humidity", "power_consumption",
             "motion_count", "light_level"]
 X = data[features]
 
@@ -271,13 +275,13 @@ _LOGGER = logging.getLogger(__name__)
 
 class AnomalyDetectorCoordinator(DataUpdateCoordinator):
     """Координатор для сбора данных и запуска ML-инференса."""
-    
+
     def __init__(self, hass: HomeAssistant, entry):
         self.hass = hass
         self.entry = entry
         self.model = AnomalyDetectorModel(model_path="/config/models/anomaly_model.pkl")
         self.model.load_model()
-        
+
         super().__init__(
             hass,
             _LOGGER,
@@ -285,29 +289,29 @@ class AnomalyDetectorCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(minutes=5),  # Обновление каждые 5 минут
             always_update=True
         )
-    
+
     async def _async_update_data(self):
         """Сбор данных и запуск ML-инференса."""
         try:
             # 1. Сбор данных с датчиков
             sensor_data = await self._fetch_sensor_data()
-            
+
             # 2. Запуск ML-инференса
             result = await self._run_inference(sensor_data)
-            
+
             # 3. Сохранение результата
             self.data = result
-            
+
             return result
-            
+
         except Exception as err:
             _LOGGER.error(f"Ошибка обновления данных: {err}")
             raise UpdateFailed(f"Ошибка обновления: {err}")
-    
+
     async def _fetch_sensor_data(self) -> dict:
         """Сбор данных с датчиков Home Assistant."""
         data = {}
-        
+
         # Получение состояния датчиков
         sensor_mapping = {
             "temperature": "sensor.living_room_temperature",
@@ -316,7 +320,7 @@ class AnomalyDetectorCoordinator(DataUpdateCoordinator):
             "motion_count": "sensor.daily_motion_count",
             "light_level": "sensor.light_sensor"
         }
-        
+
         for key, entity_id in sensor_mapping.items():
             state = self.hass.states.get(entity_id)
             if state:
@@ -326,9 +330,9 @@ class AnomalyDetectorCoordinator(DataUpdateCoordinator):
                     data[key] = 0.0
             else:
                 data[key] = 0.0
-        
+
         return data
-    
+
     async def _run_inference(self, sensor_data: dict) -> dict:
         """Запуск ML-модели для детекции аномалий."""
         # Запуск в отдельном потоке (блокирующая операция)
@@ -353,7 +357,7 @@ from .coordinator import AnomalyDetectorCoordinator
 async def async_setup_entry(hass: HomeAssistant, entry, async_add_entities):
     """Настройка сенсоров."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    
+
     sensors = [
         AnomalyScoreSensor(coordinator, entry),
         AnomalyStatusBinarySensor(coordinator, entry)
@@ -362,23 +366,23 @@ async def async_setup_entry(hass: HomeAssistant, entry, async_add_entities):
 
 class AnomalyScoreSensor(CoordinatorEntity, SensorEntity):
     """Сенсор для отображения степени аномальности."""
-    
+
     _attr_icon = "mdi:alert-circle"
     _attr_native_unit_of_measurement = "%"
-    
+
     def __init__(self, coordinator: AnomalyDetectorCoordinator, entry):
         super().__init__(coordinator)
         self._attr_unique_id = f"{entry.entry_id}_anomaly_score"
         self._attr_name = "Anomaly Score"
         self._attr_device_class = "score"
-        
+
     @property
     def native_value(self):
         """Текущее значение сенсора."""
         if self.coordinator.data and "anomaly_score" in self.coordinator.data:
             return round(self.coordinator.data["anomaly_score"] * 100, 1)
         return None
-    
+
     @property
     def extra_state_attributes(self):
         """Дополнительные атрибуты."""
@@ -391,22 +395,22 @@ class AnomalyScoreSensor(CoordinatorEntity, SensorEntity):
 
 class AnomalyStatusBinarySensor(CoordinatorEntity, SensorEntity):
     """Бинарный сенсор статуса аномалии."""
-    
+
     _attr_icon = "mdi:security"
-    
+
     def __init__(self, coordinator: AnomalyDetectorCoordinator, entry):
         super().__init__(coordinator)
         self._attr_unique_id = f"{entry.entry_id}_anomaly_status"
         self._attr_name = "Anomaly Status"
         self._attr_device_class = "problem"
-        
+
     @property
     def is_on(self):
         """True если обнаружена аномалия."""
         if self.coordinator.data:
             return self.coordinator.data.get("is_anomaly", False)
         return False
-    
+
     @property
     def extra_state_attributes(self):
         """Дополнительные атрибуты."""
@@ -518,12 +522,12 @@ def async_get_tools(hass: HomeAssistant, llm_context: LLMContext) -> llm.LLMTool
 
 class AnomalyAnalysisTool(llm.Tool):
     """Инструмент для анализа аномалий."""
-    
+
     def __init__(self, hass):
         self.hass = hass
         self.name = "analyze_anomalies"
         self.description = "Анализ аномалий в состоянии дома за последний час"
-        
+
     async def async_call(self, llm_context, user_prompt):
         """Вызов инструмента."""
         # Получение истории аномалий
@@ -555,7 +559,7 @@ async def async_get_config_entry_diagnostics(
 ) -> dict:
     """Возврат диагностической информации."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    
+
     return {
         "entry_id": entry.entry_id,
         "version": entry.version,
@@ -577,14 +581,14 @@ async def async_get_config_entry_diagnostics(
 Настройте через Settings → Devices & Services → Add Integration
 
 9. Часть 7. Связь с компетенциями и выводы (10 минут)
-9.1. Соответствие компетенции LC‑5.2 (средний уровень)
-Аспект LC‑5.2	Реализация в практической работе
+9.1. Соответствие индикатору `LC-5.2 (С)`
+Аспект LC-5.2	Реализация в практической работе
 Выбор инструментов	Координатор для управления данными, MQTT/REST для коммуникации, scikit-learn для ML
 Уровень доступа	Разделение прав через сервисы Home Assistant, безопасная настройка через Config Flow
 Контроль качества	Валидация данных в Coordinator, обработка ошибок, диагностика
 Скорость запросов	Асинхронная обработка, кэширование через Coordinator, настраиваемый интервал обновления
-9.2. Соответствие компетенции PL‑1.2 (средний уровень)
-Аспект PL‑1.2	Реализация
+9.2. Соответствие индикатору `PL-1.2 (С)`
+Аспект PL-1.2	Реализация
 Выбор библиотек	scikit-learn для ML, asyncio/aiohttp для асинхронной работы
 Оптимизация кода	Использование Coordinator для кэширования, асинхронные операции
 Интеграция	Связь с экосистемой Home Assistant через API

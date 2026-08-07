@@ -28,7 +28,7 @@
 
 - [ФОС](FOS.md)
 - [КИМ](kim-02.md)
-- [Глоссарий](glossary.md)
-- [Литература](references.md)
 - [Датасеты](../resources/datasets/README.md)
+- [Учебники и справочные материалы](../resources/textbooks/README.md)
+- [Научные статьи](../resources/papers/README.md)
 - [Модель измерения](../docs/quality/measurement-model.md)

@@ -56,7 +56,9 @@ def load_data(path: Path = DATA_PATH) -> pd.DataFrame:
     return df
 
 
-def train_isolation_forest(df: pd.DataFrame) -> tuple[IsolationForest, StandardScaler, np.ndarray]:
+def train_isolation_forest(
+    df: pd.DataFrame,
+) -> tuple[IsolationForest, StandardScaler, np.ndarray, np.ndarray]:
     X = df[FEATURES].values
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
@@ -138,7 +140,7 @@ true_anomaly     {cm[1][0]:6d}       {cm[1][1]:6d}
 ## Файлы
 - Модель: `{MODEL_PATH.relative_to(ROOT)}`
 - Scaler: `{SCALER_PATH.relative_to(ROOT)}`
-- Предсказания: `reports/predictions.csv`
+- Предсказания: `output/reports/predictions.csv`
 
 ## Компетенция КРМ
 **ML-4.2** — выявление аномалий; **ML-4.3** — оценка качества обучения без учителя.

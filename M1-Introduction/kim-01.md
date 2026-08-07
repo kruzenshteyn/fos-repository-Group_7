@@ -487,9 +487,11 @@ MQTT-тема объект/оборудование/тип; JSON timestamp, devi
   "humidity": 46.0,
   "co2": 650
 }
+```
 
-## 5.2. TimescaleDB
-sql
+### 5.2. TimescaleDB
+
+```sql
 CREATE TABLE telemetry (
   time TIMESTAMPTZ NOT NULL,
   device_id TEXT NOT NULL,
@@ -501,9 +503,11 @@ CREATE TABLE telemetry (
 
 SELECT create_hypertable('telemetry','time',if_not_exists=>TRUE);
 CREATE INDEX idx_telemetry_room_time ON telemetry(room, time DESC);
+```
 
-## 5.3. Аналитический запрос
-sql
+### 5.3. Аналитический запрос
+
+```sql
 SELECT time_bucket(INTERVAL '1 minute', time) AS minute,
        room,
        AVG(temperature),
@@ -512,8 +516,10 @@ FROM telemetry
 WHERE time >= NOW() - INTERVAL '30 minutes'
 GROUP BY minute, room
 ORDER BY minute, room;
+```
 
-## 5.4. Архитектурный ответ
+### 5.4. Архитектурный ответ
+
 Edge: сбор, очистка и критическое решение.
 
 Fog: агрегация устройств, локальный мониторинг и резерв.
@@ -524,5 +530,8 @@ Cloud: долгосрочное хранение, обучение и обнов
 
 Оценивать среднюю и p95 задержку, доступность, CPU/RAM и трафик.
 
-# 6. Лист регистрации результатов
-Ф.И.О.	Вар.	А	Б	В1	В2	В3	Итого	Оценка
+## 6. Лист регистрации результатов
+
+| Ф. И. О. | Вариант | А | Б | В1 | В2 | В3 | Итого | Оценка |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| | | | | | | | | |
