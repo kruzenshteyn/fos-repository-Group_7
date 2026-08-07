@@ -13,7 +13,9 @@ fos-repository-Group_7/
 ├── Exam/
 ├── docs/
 │   ├── rpd.md
-│   └── quality-checklist.md
+│   └── quality/
+│       ├── measurement-model.md
+│       └── checklist.md
 ├── methodical-guidelines/
 │   ├── students/
 │   ├── teachers-assessment/

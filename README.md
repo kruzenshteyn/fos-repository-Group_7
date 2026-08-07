@@ -13,8 +13,8 @@
 ## Основные документы
 
 - [Рабочая программа дисциплины](docs/rpd.md)
-- [Модель измерения](MEASUREMENT_MODEL_detailed.md)
-- [Контроль качества](docs/quality-checklist.md)
+- [Модель измерения](docs/quality/measurement-model.md)
+- [Контроль качества](docs/quality/checklist.md)
 - [Методические указания](methodical-guidelines/README.md)
 - [Проектная работа](Project/README.md)
 - [Экзамен](Exam/README.md)
