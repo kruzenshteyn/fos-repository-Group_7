@@ -1,74 +1,29 @@
-.
-├── data/
-│   ├── competency-catalog.csv
-│   ├── krm-v3.0.xlsx
-│   ├── README.md
-│   └── role-competency-matrix.csv
-├── docs/
-│   ├── quality-checklist.md
-│   ├── README.md
-│   ├── repository_example.pdf
-│   └── rpd.md
-├── Exam/
-│   ├── attachments/
-│   │   └── .gitkeep
-│   └── README.md
-├── M1-module-name/
-│   ├── attachments/
-│   │   └── .gitkeep
-│   ├── kim-01-practical-work.md
-│   ├── README.md
-│   └── rubric-01.md
-├── M2-module-name/
-│   ├── attachments/
-│   │   └── .gitkeep
-│   ├── kim-01-practical-work.md
-│   ├── kim-01-template.md
-│   └── README.md
-├── methodical-guidelines/
-│   ├── students/
-│   │   └── README.md
-│   ├── teachers-assessment/
-│   │   └── README.md
-│   ├── teachers-resources/
-│   │   └── README.md
-│   └── README.md
-├── other/
-│   └── README.md
-├── Project/
-│   ├── attachments/
-│   │   └── .gitkeep
-│   └── README.md
-├── resources/
-│   ├── benchmarks/
-│   │   └── README.md
-│   ├── datasets/
-│   │   └── README.md
-│   ├── llm-prompts/
-│   │   └── README.md
-│   ├── other/
-│   │   └── README.md
-│   ├── papers/
-│   │   └── README.md
-│   ├── problem-banks/
-│   │   └── README.md
-│   ├── software/
-│   │   └── python-libs/
-│   │       └── README.md
-│   ├── test-banks/
-│   │   └── README.md
-│   ├── textbooks/
-│   │   └── README.md
-│   └── README.md
-├── team/
-│   ├── images/
-│   │   └── .gitkeep
-│   └── README.md
-├── tools/
-│   ├── README.md
-│   └── validate_repository.py
-├── .gitignore
+fos-repository-Group_7/
+├── README.md
 ├── CONTRIBUTING.md
 ├── LICENSE.md
-├── README.md
-└── validation-report.txt
+├── LICENSE-CONTENT.md
+├── LICENSE-CODE.md
+├── M1-Introduction/
+├── M2-AI-Foundations/
+├── M3-Smart-Home-Models/
+├── M4-Edge-Deployment/
+├── M5-Project-Exam/
+├── Project/
+├── Exam/
+├── docs/
+│   ├── rpd.md
+│   └── quality-checklist.md
+├── methodical-guidelines/
+│   ├── students/
+│   ├── teachers-assessment/
+│   └── teachers-resources/
+├── resources/
+│   ├── datasets/
+│   ├── software/
+│   ├── benchmarks/
+│   ├── problem-banks/
+│   └── test-banks/
+├── data/
+│   └── krm-v3.0.xlsx
+└── team/
