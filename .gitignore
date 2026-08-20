@@ -9,6 +9,13 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.ipynb_checkpoints/
+
+# Воспроизводимые артефакты экспериментов
+/models/
+/reports/predictions.csv
+*.joblib
+**/output/
 
 # Временные файлы офисных приложений
 ~$*.docx
